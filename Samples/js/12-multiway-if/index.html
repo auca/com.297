@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>12: Multiway-way if</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const num1 = parseInt(prompt('Enter the first number:'));
+        const num2 = parseInt(prompt('Enter the second number:'));
+
+        let msg;
+        if (num1 > num2) {
+            msg = `The first number ${num1} is greater than the second number ${num2}.`;
+        } else if (num2 > num1) {
+            msg = `The second number ${num2} is greater than the first number ${num1}.`;
+        } else {
+            msg = `The numbers are equal.`;
+        }
+
+        document.getElementById('result').textContent = msg;
+    </script>
+</body>
+</html>

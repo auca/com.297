@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>03: Browser Input, Forms</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter your name: <input id="first-name" type="text"></label>
+        <button type="submit">Greet!</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener("submit", event => {
+            event.preventDefault();
+
+            const name = document.getElementById('first-name').value;
+            document.getElementById('result').textContent = `Hi, ${name}!`;
+        });
+    </script>
+</body>
+</html>

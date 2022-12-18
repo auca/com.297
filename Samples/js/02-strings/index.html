@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>02: Strings</title>
+    <style>
+        p {
+             font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        // Option #1
+        console.log('***************');
+        console.log('*Hello, World!*');
+        console.log('***************');
+
+        // Option #2
+        console.log("***************\n*Hello, World!*\n***************");
+
+        // Option #3
+        console.log(
+            '***************\n' +
+            '*Hello, World!*\n' +
+            '***************'
+        );
+
+        // Option #4
+        console.log(
+`***************
+*Hello, World!*
+***************`
+        );
+
+        // ...
+
+        // document.getElementById('result').innerHTML = '***************';
+        // document.getElementById('result').innerHTML = '*Hello, World!*';
+        // document.getElementById('result').innerHTML = '***************';
+
+        // Option #1
+
+        // document.getElementById('result').innerHTML  = '***************<br>';
+        // document.getElementById('result').innerHTML += '*Hello, World!*<br>';
+        // document.getElementById('result').innerHTML += '***************';
+
+        // // Option #2
+
+        // document.getElementById('result').innerHTML =
+        //     '***************<br>*Hello, World!*<br>***************';
+
+        // // Option #3
+
+        document.getElementById('result').innerHTML = // <- replace with `.textContent = `
+            '***************<br>' +
+            '*Hello, World!*<br>' +
+            '***************';
+    </script>
+</body>
+</html>

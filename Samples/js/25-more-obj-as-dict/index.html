@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>25: Object as a Dictionary</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        function findMostPopLetter(article) {
+            const freq = {}
+            for (let character of article) {
+                character = character.toLowerCase()
+                if (character.charCodeAt(0) >= 'a'.charCodeAt(0) &&
+                    character.charCodeAt(0) <= 'z'.charCodeAt(0)) {
+                    if (freq[character]) {
+                        freq[character]++
+                    } else {
+                        freq[character] = 1
+                    }
+                }
+            }
+
+            let mostPopLetter = 'a'
+            let mostPopLetterCount = freq['a'] || 0
+            for (const [letter, count] of Object.entries(freq)) {
+                if (count > mostPopLetterCount) {
+                    mostPopLetterCount = count
+                    mostPopLetter = letter
+                }
+            }
+
+            return mostPopLetter
+        }
+
+        const article = `President Biden issued an impassioned condemnation of his predecessor and other Republicans on Wednesday night for encouraging political violence, voter intimidation and “the Big Lie,” framing next week’s elections as a pivotal test of American democracy.
+
+While candidates and voters have focused on economic and other issues, Mr. Biden sought to use a nationally televised evening speech to put the future of the nation’s system of elections front and center for the final days of debate before midterm elections on Tuesday that will determine control of Congress and numerous state offices.
+
+“As I stand here today, there are candidates running for every level of office in America — for governor, Congress, attorney general, secretary of state — who won’t commit, they will not commit to accepting the results of the elections that they’re running in,” Mr. Biden said at Union Station, just blocks from where a mob stormed the Capitol on Jan. 6, 2021, to disrupt the transfer of power. “This is the path to chaos in America. It’s unprecedented. It’s unlawful. And it’s un-American.”
+
+The president seemed particularly unnerved by the violent attack Friday on Paul Pelosi by a hammer-wielding assailant who the police say was seeking to kidnap his wife, Speaker Nancy Pelosi, using words reminiscent of those called out by rioters on Jan. 6. Mr. Biden traced the attack to former President Donald J. Trump’s “Big Lie” that the 2020 election was stolen.
+
+“It’s a lie that fueled a dangerous rise in political violence and voter intimidation over the past two years,” Mr. Biden said. Citing examples of election workers being harassed and menaced, the president singled out Mr. Trump’s own efforts days before the Jan. 6 attack to pressure Georgia’s Republican secretary of state to “find” him enough votes to reverse the outcome of the election in that state.`
+
+        const encArticle = `dro bkllsdryvo goxd cdbksqrd yx vsuo k dexxov pyb cywo gki kxn droxnszzon cennoxvi nygx cy cennoxvi drkd kvsmo rkn xyd k wywoxd dy drsxuklyed cdyzzsxq robcovp lopybo cro pyexn robcovp pkvvsxq nygx k fobi noozgovvosdrob dro govv gkc fobi nooz yb cro povv fobi cvygvi pyb cro rknzvoxdi yp dswo kc cro goxd nygx dy vyyu klyed rob kxn dy gyxnob grkd gkcqysxq dy rkzzox xohd psbcd cro dbson dy vyyu nygx kxn wkuo yed grkdcro gkc mywsxq dy led sd gkc dyy nkbu dy coo kxidrsxq drox crovyyuon kd dro csnoc yp dro govv kxn xydsmon drkd droi gobo psvvon gsdrmezlykbnc kxn lyyucrovfoc robo kxn drobo cro ckg wkzc kxn zsmdebocrexq ezyx zoqc cro dyyu nygx k tkb pbyw yxo yp dro crovfoc kccro zkccon sd gkc vklovvon ybkxqo wkbwkvkno led dy rob qbokdnsckzzysxdwoxd sd gkc owzdi cro nsn xyd vsuo dy nbyz dro tkb pyb pokbyp usvvsxq cywolyni cy wkxkqon dy zed sd sxdy yxo yp dro mezlykbnc kccro povv zkcd sdgovv dryeqrd kvsmo dy robcovp kpdob cemr k pkvv kc drsc s crkvvdrsxu xydrsxq yp dewlvsxq nygx cdksbc ryg lbkfo droivv kvv drsxu wo kdrywo gri s gyevnxd cki kxidrsxq klyed sd ofox sp s povv ypp dro dyzyp dro ryeco grsmr gkc fobi vsuovi dbeonygx nygx nygx gyevn dro pkvv xofob mywo dy kx oxn s gyxnob rygwkxi wsvoc sfo pkvvox li drsc dswo cro cksn kvyen s wecd lo qoddsxqcywogrobo xokb dro moxdbo yp dro okbdr vod wo coo drkd gyevn lo pyebdryeckxn wsvoc nygx s drsxu pyb iye coo kvsmo rkn vokbxd cofobkvdrsxqc yp drsc cybd sx rob voccyxc sx dro cmryyvbyyw kxn dryeqr drscgkc xyd k fobi qyyn yzzybdexsdi pyb crygsxq ypp rob uxygvonqo kc drobogkc xy yxo dy vscdox dy rob cdsvv sd gkc qyyn zbkmdsmo dy cki sd yfobioc drkdc klyed dro bsqrd nscdkxmoled drox s gyxnob grkd vkdsdenoyb vyxqsdeno sfo qyd dy kvsmo rkn xy snok grkd vkdsdeno gkc ybvyxqsdeno osdrob led dryeqrd droi gobo xsmo qbkxn gybnc dy ckizbocoxdvi cro loqkx kqksx s gyxnob sp s crkvv pkvv bsqrd drbyeqr drookbdr ryg pexxi sdvv coow dy mywo yed kwyxq dro zoyzvo drkd gkvu gsdrdrosb roknc nygxgkbn dro kxdszkdrsoc s drsxu cro gkc bkdrob qvkndrobo gkc xy yxo vscdoxsxq drsc dswo kc sd nsnxd cyexn kd kvv drobsqrd gybn led s crkvv rkfo dy kcu drow grkd dro xkwo yp dro myexdbisc iye uxyg zvokco wkkw sc drsc xog jokvkxn yb kecdbkvsk kxncro dbson dy mebdcoi kc cro czyuopkxmi mebdcoisxq kc iyebo pkvvsxqdrbyeqr dro ksb ny iye drsxu iye myevn wkxkqo sd kxn grkd kxsqxybkxd vsddvo qsbv crovv drsxu wo pyb kcusxq xy sdvv xofob ny dykcu zobrkzc s crkvv coo sd gbsddox ez cywogrobonygx nygx nygx drobo gkc xydrsxq ovco dy ny cy kvsmo cyyx loqkxdkvusxq kqksx nsxkrvv wscc wo fobi wemr dyxsqrd s cryevn drsxunsxkr gkc dro mkd s ryzo droivv bowowlob rob ckemob yp wsvu kddokdswo nsxkr wi nokb s gscr iye gobo nygx robo gsdr wo drobo kbo xywsmo sx dro ksb sw kpbksn led iye wsqrd mkdmr k lkd kxn drkdc fobivsuo k wyeco iye uxyg led ny mkdc okd lkdc s gyxnob kxn robo kvsmoloqkx dy qod bkdrob cvoozi kxn goxd yx ckisxq dy robcovp sx k nbokwicybd yp gki ny mkdc okd lkdc ny mkdc okd lkdc kxn cywodswoc nylkdc okd mkdc pyb iye coo kc cro myevnxd kxcgob osdrob aeocdsyxsd nsnxd wemr wkddob grsmr gki cro zed sd cro povd drkd cro gkc nyjsxqypp kxn rkn tecd loqex dy nbokw drkd cro gkc gkvusxq rkxn sx rkxn gsdrnsxkr kxn ckisxq dy rob fobi okbxocdvi xyg nsxkr dovv wo dro dbedrnsn iye ofob okd k lkd grox cennoxvi drewz drewz nygx cro mkwo ezyxk rokz yp cdsmuc kxn nbi vokfoc kxn dro pkvv gkc yfob`
+
+        const mostPopLetter = findMostPopLetter(article)
+        const mostPopEncLetter = findMostPopLetter(encArticle)
+
+        const decKey = mostPopLetter.charCodeAt(0) - mostPopEncLetter.charCodeAt(0)
+
+        let decArticle = ''
+        for (let character of encArticle) {
+            character = character.toLowerCase()
+            if (character.charCodeAt(0) >= 'a'.charCodeAt(0) &&
+                character.charCodeAt(0) <= 'z'.charCodeAt(0)) {
+                let alphabetPos = character.charCodeAt(0) + decKey
+                if (alphabetPos < 'a'.charCodeAt(0)) {
+                    alphabetPos = ('z'.charCodeAt(0) + 1) - ('a'.charCodeAt(0) - alphabetPos)
+                }
+
+                decArticle += String.fromCharCode(alphabetPos)
+            } else {
+                decArticle += character
+            }
+        }
+
+        document.getElementById('result').innerHTML = decArticle
+    </script>
+</body>
+</html>

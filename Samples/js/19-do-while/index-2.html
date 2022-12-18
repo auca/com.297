@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>19: do-while</title>
+    <style>
+        body { margin: 0; overflow: hidden }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function startDrawing() {
+                const canvas = document.getElementById('canvas');
+                const width  = canvas.width  = window.innerWidth;
+                const height = canvas.height = window.innerHeight;
+                draw(canvas.getContext('2d'), width, height);
+            }
+            window.addEventListener('resize', startDrawing); startDrawing();
+        })
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const radiusDiff = 2;
+        const colorDiff = 2;
+
+        function draw(ctx, width, height) {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, width, height);
+
+            const x = width / 2;
+            const y = height / 2;
+            let radius = Math.min(width, height) / 2;
+            let red = 0;
+
+            do {
+                ctx.fillStyle = `rgb(${red}, ${0}, ${0})`;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                ctx.fill();
+
+                radius -= radiusDiff;
+                red += colorDiff;
+            } while (radius > 0);
+        }
+    </script>
+</body>
+</html>

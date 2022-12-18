@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>24: Object as a Dictionary</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const article = `If the clock was ticking and you were tasked with picking out the biggest cat from a series of thumbnail photos of felines, could you do it?
+
+What if a Telfar bag was on the line?
+
+Last week, the fashion brand, helmed by the breakout designer Telfar Clemens, released a limited number of new bags in what is known as a “drop.” When this happens, chaos often ensues and the bags sell out in a matter of minutes. This time was no exception.
+
+Usually, other Telfar fans and finger dexterity are the greatest obstacles standing in the way of securing one of these sought-after bags. Consumers have to be quick to purchase them online.
+
+This time, though, Telfar hopefuls found themselves bewildered by — and stuck on — the Captcha tests, which are used on websites to determine whether a visitor (often a consumer) is human or not. They are meant to deter hackers and software programs that run automated tasks (better known as retail bots)`
+
+        const freq = {}
+        for (let character of article) {
+            character = character.toLowerCase()
+            if (character.charCodeAt(0) >= 'a'.charCodeAt(0) &&
+                character.charCodeAt(0) <= 'z'.charCodeAt(0)) {
+                if (freq[character]) {
+                    freq[character]++
+                } else {
+                    freq[character] = 1
+                }
+            }
+        }
+
+        let message = ''
+        for (const character in freq) {
+            message += `${character}: ${freq[character]}<br>`
+        }
+
+        document.getElementById('result').innerHTML = message
+    </script>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>27: OOP Basics</title>
+    <style>
+        body { margin: 0; overflow: hidden }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const canvas = document.getElementById('canvas');
+            const width  = canvas.width  = window.innerWidth;
+            const height = canvas.height = window.innerHeight;
+            setup(canvas.getContext('2d'), width, height);
+        })
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script src="shapes.js"></script>
+    <script>
+        const count = 100;
+        const stars = Array(count);
+
+        const minRadius = 10, maxRadius = 40;
+        const maxSpeed = 2;
+        const maxRotSpeed = 0.03;
+
+        function random(min, max) {
+            return min + Math.random() * (max - min + 1);
+        }
+
+        function setup(ctx, width, height) {
+            for (let i = 0; i < count; i++) {
+                const radius = random(minRadius, maxRadius);
+
+                const red   = Math.trunc(random(0, 255));
+                const green = Math.trunc(random(0, 255));
+                const blue  = Math.trunc(random(0, 255));
+                const color = `rgb(${red},${green},${blue})`;
+
+                stars[i] =
+                    new Star(
+                        Math.trunc(random(8, 20)),
+                        random(radius, width - radius - 1),
+                        random(radius, height - radius - 1),
+                        radius,
+                        radius * 0.5,
+                        color
+                    );
+                stars[i].dx = random(-maxSpeed, maxSpeed);
+                stars[i].dy = random(-maxSpeed, maxSpeed);
+                stars[i].deltaAngle = -maxRotSpeed + Math.random() * (maxRotSpeed + maxRotSpeed);
+            }
+
+            ctx.fillStyle = 'black';
+            ctx.beginPath();
+            ctx.rect(0, 0, width, height);
+            ctx.fill();
+
+            window.requestAnimationFrame(timestamp => draw(ctx, width, height, timestamp));
+        }
+
+        function draw(ctx, width, height, timestamp) {
+            if (width != window.innerWidth || height != window.innerHeight) {
+                width = canvas.width  = window.innerWidth;
+                height = canvas.height = window.innerHeight;
+            }
+
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.2)';
+            ctx.beginPath();
+            ctx.rect(0, 0, width, height);
+            ctx.fill();
+
+            for (const star of stars) {
+                star.draw(ctx);
+                star.move(width, height);
+                star.rotate();
+            }
+
+            window.requestAnimationFrame(timestamp => draw(ctx, width, height, timestamp));
+        }
+    </script>
+</body>
+</html>

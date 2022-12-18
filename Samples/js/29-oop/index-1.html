@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>27: OOP Basics</title>
+    <style>
+        body { margin: 0; overflow: hidden }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function startDrawing() {
+                const canvas = document.getElementById('canvas');
+                const width  = canvas.width  = window.innerWidth;
+                const height = canvas.height = window.innerHeight;
+                draw(canvas.getContext('2d'), width, height);
+            }
+            window.addEventListener('resize', startDrawing); startDrawing();
+        })
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script src="shapes.js"></script>
+    <script>
+        function draw(ctx, width, height) {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, width, height);
+
+            ctx.lineWidth = 3;
+            ctx.lineJoin = 'round';
+
+            const stars = [
+                new Star(8,  width / 2,       height / 2,       200, 70, 'red'),
+                new Star(10, width / 2 - 150, height / 2 - 200, 100, 30),
+                new Star(12, width / 2 + 150, height / 2 - 200, 100, 30),
+                new Star(14, width / 2 + 150, height / 2 + 200, 100, 30),
+                new Star(16, width / 2 - 150, height / 2 + 200, 100, 30)
+            ];
+
+            for (const star of stars) star.draw(ctx);
+        }
+    </script>
+</body>
+</html>

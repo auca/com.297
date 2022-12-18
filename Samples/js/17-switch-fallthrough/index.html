@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>17: switch fallthrough</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter the month number: <input id="month" type="text"></label>
+        <button type="submit">Find the season name</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener("submit", event => {
+            event.preventDefault();
+
+            const month = parseInt(document.getElementById('month').value);
+            if (isNaN(month)) {
+                document.getElementById('result').textContent = 'Invalid input.';
+            } else {
+                let msg;
+                switch (month) {
+                    case 1: case 2:  case 12: msg = 'Winter'; break;
+                    case 3: case 4:  case 5:  msg = 'Spring'; break;
+                    case 6: case 7:  case 8:  msg = 'Summer'; break;
+                    case 9: case 10: case 11: msg = 'Fall';   break;
+                    default: msg = 'Invalid month number';
+                }
+
+                document.getElementById('result').textContent = msg;
+            }
+        });
+    </script>
+</body>
+</html>

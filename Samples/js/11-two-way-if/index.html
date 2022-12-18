@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>11: Two-way if</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const num = parseInt(prompt('Enter a number:'));
+
+        let msg;
+        if (num % 2 === 0) {
+            msg = `The number ${num} is even.`;
+        } else {
+            msg = `The number ${num} is odd.`;
+        }
+
+        document.getElementById('result').textContent = msg;
+    </script>
+</body>
+</html>

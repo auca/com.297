@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>24: function</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter a 1-D coordinate: <input id="coord" type="text"></label><br>
+        <label>Enter the first point coordinates: <input id="point1" type="text"></label><br>
+        <label>Enter the second point coordinates: <input id="point2" type="text"></label><br>
+        <button type="submit">Find which point is near</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener('submit', event => {
+            event.preventDefault();
+
+            const coord  = parseInt(document.getElementById('coord').value);
+            const point1 = parseInt(document.getElementById('point1').value);
+            const point2 = parseInt(document.getElementById('point2').value);
+            if (isNaN(coord) || isNaN(point1) || isNaN(point2)) {
+                document.getElementById('result').textContent = 'Введите числа.';
+            } else {
+                function abs(num) {
+                    if (num < 0) {
+                        num = -num;
+                    }
+                    return num;
+                }
+                // const abs = function(num) {
+                //     if (num < 0) {
+                //         num = -num;
+                //     }
+                //     return num;
+                // }
+                // const abs = function myABS(num) {
+                //     if (num < 0) {
+                //         num = -num;
+                //     }
+                //     return num;
+                // }
+                // const abs = num => {
+                //     if (num < 0) {
+                //         num = -num;
+                //     }
+                //     return num;
+                // }
+
+                const dist1 = abs(coord - point1);
+                const dist2 = abs(coord - point2);
+                let msg;
+                if (dist1 < dist2) {
+                    msg = `The first point is closer. The distance is ${dist1}`;
+                } else if (dist2 < dist1) {
+                    msg = `The second point is closer. The distance is ${dist2}`;
+                } else {
+                    msg = `The distance is equal for both points to ${dist1}`;
+                }
+
+                document.getElementById('result').textContent = msg;
+            }
+        });
+    </script>
+</body>
+</html>

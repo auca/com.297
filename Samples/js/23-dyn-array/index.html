@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>22: dynamic arrays</title>
+    <script src="../practice-06-task-03/math.js"></script>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const n = parseInt(prompt('N:'));
+        const nums = Array();
+        // const nums = Array(n);
+        for (let i = 0; i < n; i++) {
+            nums.push(parseInt(prompt(`Введите элемент ${i}:`)));
+            // nums[i] = parseInt(prompt(`Введите элемент ${i}:`));
+        }
+
+        if (nums.length > 0) {
+            document.getElementById('result').innerHTML =
+                `Minimum values: ${min(...nums)}<br>` +
+                `Maximum value: ${max(...nums)}`;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Практика 6, задание №5</title>
+    <style>
+        body { margin: 0; overflow: hidden }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function startDrawing() {
+                const canvas = document.getElementById('canvas');
+                const width  = canvas.width  = window.innerWidth;
+                const height = canvas.height = window.innerHeight;
+                draw(canvas.getContext('2d'), width, height);
+            }
+            window.addEventListener('resize', startDrawing); startDrawing();
+        });
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        function star(ctx, rays, x, y, radius1, radius2, color, angle) {
+            rays += rays % 2;
+            let angleDelta = 2 * Math.PI / rays;
+
+            ctx.lineWidth = 3;
+            ctx.lineJoin = "round";
+            ctx.strokeStyle = color;
+            for (let i = 0; i < rays; i++) {
+                let radius = i % 2 === 0 ? radius1 : radius2;
+                const endX = x + Math.cos(angle) * radius;
+                const endY = y + Math.sin(angle) * radius;
+                radius = i % 2 !== 0 ? radius1 : radius2;
+                const nextEndX = x + Math.cos(angle + angleDelta) * radius;
+                const nextEndY = y + Math.sin(angle + angleDelta) * radius;
+                ctx.beginPath();
+                ctx.moveTo(x, y);
+                ctx.lineTo(endX, endY);
+                ctx.lineTo(nextEndX, nextEndY);
+                ctx.stroke();
+                angle += angleDelta;
+            }
+        }
+
+        function draw(ctx, width, height) {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, width, height);
+
+            star(ctx, 8, width / 2, height / 2, 100, 35, 'red', 0);
+            star(ctx, 10, width / 2 - 100, height / 2 - 150, 80, 28, 'yellow', 0);
+            star(ctx, 12, width / 2 + 100, height / 2 - 150, 80, 28, 'yellow', -0.65);
+            star(ctx, 13, width / 2 + 100, height / 2 + 150, 80, 28, 'yellow', -0.65);
+            star(ctx, 20, width / 2 - 100, height / 2 + 150, 80, 70, 'yellow', -0.65);
+        }
+    </script>
+</body>
+</html>

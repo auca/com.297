@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>26: Arrow Functions</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter the list of numbers: <input id="nums" type="text"></label>
+        <button type="submit">Process numbers</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener('submit', event => {
+            event.preventDefault();
+
+            const input = document.getElementById('nums').value.trim();
+            let nums = input.length === 0 ? [] : input.split(' ');
+
+            let containsNaNs = false;
+            for (let i = 0; i < nums.length; i++) {
+                nums[i] = parseInt(nums[i]);
+                if (isNaN(nums[i])) {
+                    containsNaNs = true;
+                    break;
+                }
+            }
+
+            let msg;
+            if (containsNaNs) {
+                msg = 'Invalid input.';
+            } else if (nums.length === 0) {
+                msg = 'No input.';
+            } else {
+                // let sum = 0;
+                // for (let i = 0; i < nums.length; i++) {
+                //     if (i % 2 === 0) {
+                //         sum += nums[i] ** 2;
+                //     }
+                // }
+
+                // function removeOnOddPos(_, i) {
+                //     return i % 2 === 0;
+                // }
+                // function square(num) {
+                //     return num ** 2;
+                // }
+                // function sum(prevSum, sum) {
+                //     return prevSum + sum;
+                // }
+                // const sum = nums.filter(removeOnOddPos)
+                //                 .map(square)
+                //                 .reduce(sum);
+
+                // const sum = nums.filter(function(_, i) {
+                //                             return i % 2 === 0;
+                //                         })
+                //                 .map(function(num) {
+                //                     return num ** 2;
+                //                 })
+                //                 .reduce(function(prevSum, sum) {
+                //                     return prevSum + sum;
+                //                 });
+
+                const sum = nums.filter((_, i) => i % 2 === 0)
+                                .map(num => num ** 2)
+                                .reduce((prevSum, num) => prevSum + num);
+
+                msg = `The sum of squares on even positions: ${sum}`;
+            }
+            document.getElementById('result').textContent = msg;
+        });
+    </script>
+</body>
+</html>

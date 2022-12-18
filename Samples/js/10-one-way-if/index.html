@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>10: One-way if</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter a real number: <input id="number" type="text"></label>
+        <button type="submit">Find its absolute value</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener('submit', event => {
+            event.preventDefault();
+
+            const num = parseFloat(document.getElementById('number').value);
+            if (!isNaN(num)) {
+                // const res = Math.abs(num);
+                let res = num;
+                // if (num < 0) res = -num; // num * -1;
+                if (num < 0) {
+                    res = -num; // num * -1;
+                }
+
+                document.getElementById('result').textContent = `|${num}| = ${res}`;
+            } else {
+                document.getElementById('result').textContent = 'Invalid input.';
+            }
+        });
+    </script>
+</body>
+</html>

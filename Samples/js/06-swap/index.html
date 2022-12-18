@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>06: Swap</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        let a = parseInt(prompt('Enter the first value:'));
+        let b = parseInt(prompt('Enter the second value:'));
+
+        document.getElementById('result').innerHTML =
+            `Before: a = ${a}; b = ${b};<br>`;
+
+        // const temp = a;
+        // a = b;
+        // b = temp;
+
+        [a, b] = [b, a];
+
+        document.getElementById('result').innerHTML +=
+            `After: a = ${a}; b = ${b};`;
+    </script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>20: for</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const minTestValue = 1;
+        const maxTestValue = 10;
+
+        let testCount = parseInt(prompt('Enter the number of tests:'));
+
+        let correctAnswers = 0;
+        let incorrectAnswers = 0;
+
+        for (let i = 0; i < testCount; i++) {
+            const num1 = Math.trunc(minTestValue + Math.random() * (maxTestValue - minTestValue + 1));
+            const num2 = Math.trunc(minTestValue + Math.random() * (maxTestValue - minTestValue + 1));
+            const answer = parseInt(prompt(`${num1} + ${num2} = `));
+            if (num1 + num2 === answer) {
+                correctAnswers++;
+            } else {
+                incorrectAnswers++;
+            }
+        }
+
+        /*
+        while (testCount-- > 0) {
+            const num1 = Math.trunc(minTestValue + Math.random() * (maxTestValue - minTestValue + 1));
+            const num2 = Math.trunc(minTestValue + Math.random() * (maxTestValue - minTestValue + 1));
+            const answer = parseInt(prompt(`${num1} + ${num2} = `));
+            if (num1 + num2 === answer) {
+                correctAnswers++;
+            } else {
+                incorrectAnswers++;
+            }
+        }
+        */
+
+        document.getElementById('result').innerHTML =
+            `Correct answers: ${correctAnswers}<br>` +
+            `Incorrect answers: ${incorrectAnswers}`;
+    </script>
+</body>
+</html>

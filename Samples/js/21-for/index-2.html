@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>20: for</title>
+    <style>
+        body { margin: 0; overflow: hidden }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            function startDrawing() {
+                const canvas = document.getElementById('canvas');
+                const width  = canvas.width  = window.innerWidth;
+                const height = canvas.height = window.innerHeight;
+                draw(canvas.getContext('2d'), width, height);
+            }
+            window.addEventListener('resize', startDrawing); startDrawing();
+        })
+    </script>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <script>
+        const circleCount = 1000;
+        const minRadius = 0;
+        const maxRadius = 2;
+
+        function draw(ctx, width, height) {
+            ctx.fillStyle = 'black';
+            ctx.fillRect(0, 0, width, height);
+
+            for (let i = 0; i < circleCount; i++) {
+                const x = Math.trunc(Math.random() * width);
+                const y = Math.trunc(Math.random() * height);
+                const radius = Math.trunc(minRadius + Math.random() * (maxRadius - minRadius + 1));
+                const red   = Math.trunc(Math.random() * 256);
+                const green = Math.trunc(Math.random() * 256);
+                const blue  = Math.trunc(Math.random() * 256);
+
+                ctx.fillStyle = `rgb(${red}, ${red}, ${red})`;
+                ctx.beginPath();
+                ctx.arc(x, y, radius, 0, 2 * Math.PI);
+                ctx.fill();
+            }
+        }
+    </script>
+</body>
+</html>

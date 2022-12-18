@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>25: Vararg Functions</title>
+    <script src="my-math.js"></script>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter numbers to find the maximums: <input id="nums" type="text"></label>
+        <button type="submit">Find the maximum number</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener('submit', event => {
+            event.preventDefault();
+
+            const input = document.getElementById('nums').value.trim();
+            const nums = input.length === 0 ? [] : input.split(' ');
+
+            let containsNaNs = false;
+            for (let i = 0; i < nums.length; i++) {
+                nums[i] = parseInt(nums[i]);
+                if (isNaN(nums[i])) {
+                    containsNaNs = true;
+                    break;
+                }
+            }
+
+            let msg;
+            if (containsNaNs) {
+                msg = 'Invalid input.';
+            } else if (nums.length === 0) {
+                msg = 'No input.';
+            } else {
+                msg = `The maximum number is: ${max(...nums)}`;
+            }
+            document.getElementById('result').textContent = msg;
+        });
+    </script>
+</body>
+</html>

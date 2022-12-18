@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>22: array</title>
+        <style>
+            body { margin: 0; overflow: hidden }
+        </style>
+        <script src="../practice-06-task-02/utilities.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const canvas = document.getElementById('canvas');
+                const width  = canvas.width  = window.innerWidth;
+                const height = canvas.height = window.innerHeight;
+                setup(canvas.getContext('2d'), width, height);
+            });
+        </script>
+    </head>
+    <body>
+        <canvas id="canvas"></canvas>
+        <script>
+            const count     = 1033;
+            const minRadius = 1;
+            const maxRadius = 6;
+            const maxSpeed  = 3;
+
+            const radii = Array(count);
+            const xs  = Array(count);
+            const ys  = Array(count);
+            const dxs = Array(count);
+            const dys = Array(count);
+
+            function setup(ctx, width, height) {
+                for (let i = 0; i < count; i++) {
+                    radii[i] = random(minRadius, maxRadius);
+                    const minX = radii[i];
+                    const maxX = width - radii[i] - 1;
+                    xs[i] = random(minX, maxX);
+                    const minY = radii[i];
+                    const maxY = height - radii[i] - 1;
+                    ys[i]  = random(minY, maxY)
+                    dxs[i] = random(-maxSpeed, maxSpeed);
+                    if (Math.abs(dxs[i] - 0) < 0.001) {
+                        dxs[i] = 1;
+                    }
+                    dys[i] = random(-maxSpeed, maxSpeed);
+                    if (Math.abs(dys[i] - 0) < 0.001) {
+                        dys[i] = 1;
+                    }
+                }
+
+                ctx.fillStyle = 'black';
+                ctx.beginPath();
+                ctx.rect(0, 0, width, height);
+                ctx.fill();
+
+                window.requestAnimationFrame(timestamp => draw(ctx, width, height, timestamp));
+            }
+
+            function draw(ctx, width, height, timestamp) {
+                if (width != window.innerWidth || height != window.innerHeight) {
+                    width = canvas.width  = window.innerWidth;
+                    height = canvas.height = window.innerHeight;
+                }
+
+                ctx.fillStyle = 'rgb(0, 0, 0, 0.05)';
+                ctx.beginPath();
+                ctx.rect(0, 0, width, height);
+                ctx.fill();
+
+                for (let i = 0; i < count; i++) {
+                    ctx.fillStyle = 'white';
+                    ctx.beginPath();
+                    ctx.arc(xs[i], ys[i], radii[i], 0, Math.PI * 2);
+                    ctx.fill();
+
+                    xs[i] += dxs[i];
+                    if (xs[i] + radii[i] > width || xs[i] - radii[i] < 0) {
+                        dxs[i] = -dxs[i];
+                    }
+                    ys[i] += dys[i];
+                    if (ys[i] + radii[i] > height || ys[i] - radii[i] < 0) {
+                        dys[i] = -dys[i];
+                    }
+                }
+
+                window.requestAnimationFrame(timestamp => draw(ctx, width, height, timestamp));
+            }
+        </script>
+    </body>
+</html>

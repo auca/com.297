@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>08: Random From Min to Max</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const min = parseInt(prompt('Enter the minimum value:'));
+        const max = parseInt(prompt('Enter the maximum value:'));
+
+        const res = Math.trunc(min + Math.random() * (max - min + 1));
+        document.getElementById('result').innerHTML =
+            `A random number from ${min} to ${max}: ${res}`;
+    </script>
+</body>
+</html>

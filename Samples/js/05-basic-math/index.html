@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>05: Basic Math</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const num1 = parseFloat(prompt('Enter the first number:'));
+        const num2 = parseFloat(prompt('Enter the second number:'));
+
+        const el = document.getElementById('result');
+
+        let res = num1 + num2;
+        el.innerHTML = `${num1} + ${num2} = ${res}<br>`;
+
+        res = num1 - num2;
+        el.innerHTML += `${num1} − ${num2} = ${res}<br>`;
+
+        res = num1 * num2;
+        el.innerHTML += `${num1} × ${num2} = ${res}<br>`;
+
+        res = Math.trunc(num1 / num2);
+        el.innerHTML += `${num1} ÷ ${num2} = ${res}<br>`;
+
+        res = num1 % num2;
+        el.innerHTML += `${num1} MOD ${num2} = ${res}<br>`;
+
+        res = num1 ** num2; // Math.pow(num1, num2);
+        el.innerHTML += `${num1} ** ${num2} = ${res}`;
+    </script>
+</body>
+</html>

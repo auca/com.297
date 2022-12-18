@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>13: Logical Operations</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter the year: <input id="year" type="text"></label>
+        <button type="submit">Check the year</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener("submit", event => {
+            event.preventDefault();
+
+            const year = parseInt(document.getElementById('year').value);
+            if (isNaN(year)) {
+                document.getElementById('result').textContent = 'Invalid input.';
+            } else {
+                /*
+                let msg;
+                if (year % 4 !== 0) {
+                    msg = `${year} is not a leap year.`;
+                } else if (year % 100 !== 0) {
+                    msg = `${year} is a leap year.`;
+                } else if (year % 400 !== 0) {
+                    msg = `${year} is not a leap year.`;
+                } else {
+                    msg = `${year} is a leap year.`;
+                }
+                */
+
+                let msg;
+                if ((year % 4 === 0 && year % 100 !== 0) || (year % 400 === 0)) {
+                    msg = `${year} is a leap year.`;
+                } else {
+                    msg = `${year} is not a leap year.`;
+                }
+
+                document.getElementById('result').textContent = msg;
+            }
+        });
+    </script>
+</body>
+</html>

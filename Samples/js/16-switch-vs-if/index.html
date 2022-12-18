@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>16: switch vs if</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter the month number: <input id="month" type="text"></label>
+        <button type="submit">Find the month name</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener("submit", event => {
+            event.preventDefault();
+
+            const month = parseInt(document.getElementById('month').value);
+            if (isNaN(month)) {
+                document.getElementById('result').textContent = 'Invalid input.';
+            } else {
+                /*
+                let msg;
+                if (month === 1) {
+                    msg = 'January';
+                } else if (month === 2) {
+                    msg = 'February';
+                } else if (month === 3) {
+                    msg = 'March';
+                } else if (month === 4) {
+                    msg = 'April';
+                } else if (month === 5) {
+                    msg = 'May';
+                } else if (month === 6) {
+                    msg = 'June';
+                } else if (month === 7) {
+                    msg = 'July';
+                } else if (month === 8) {
+                    msg = 'August';
+                } else if (month === 9) {
+                    msg = 'September';
+                } else if (month === 10) {
+                    msg = 'October';
+                } else if (month === 11) {
+                    msg = 'November';
+                } else if (month === 12) {
+                    msg = 'December';
+                } else {
+                    msg = 'Invalid month number.';
+                }
+                */
+
+                let msg;
+                switch (month) {
+                    case 1:  msg = 'January';   break;
+                    case 2:  msg = 'February';  break;
+                    case 3:  msg = 'March';     break;
+                    case 4:  msg = 'April';     break;
+                    case 5:  msg = 'May';       break;
+                    case 6:  msg = 'June';      break;
+                    case 7:  msg = 'July';      break;
+                    case 8:  msg = 'August';    break;
+                    case 9:  msg = 'September'; break;
+                    case 10: msg = 'October';   break;
+                    case 11: msg = 'November';  break;
+                    case 12: msg = 'December';  break;
+                    default: msg = 'Invalid month number.';
+                }
+
+                document.getElementById('result').textContent = msg;
+            }
+        });
+    </script>
+</body>
+</html>

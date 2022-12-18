@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Super Paint 9000</title>
+        <link rel="stylesheet" href="style.css">
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const canvas = document.getElementById('canvas')
+                const width  = canvas.width  = window.innerWidth
+                const height = canvas.height = window.innerHeight
+                setup(canvas.getContext('2d'), width, height)
+            })
+        </script>
+    </head>
+    <body>
+        <ul class="toolbar">
+            <li><button id="circle">Circle</button></li>
+            <li><button id="rectangle">Rectangle</button></li>
+            <li>
+                <label for="size">Size:</label>
+                <input type="range" id="size" min="10" max="100">
+            </li>
+            <li>
+                <label for="color">Color:</label>
+                <input type="color" id="color" value="#ff0000">
+            </li>
+            <li>
+                <label for="open">Open</label>
+                <input type="file" id="open">
+            </li>
+            <li><button id="save">Save</button></li>
+        </ul>
+        <canvas id="canvas"></canvas>
+        <script src="app.js"></script>
+        <script>
+            let shapes = []
+            let newShapeType = 'circle'
+
+            function setup(ctx, width, height) {
+                const circleButton    = document.getElementById('circle')
+                const rectangleButton = document.getElementById('rectangle')
+                const sizeSlider   = document.getElementById('size')
+                const colorChooser = document.getElementById('color')
+                const openButton = document.getElementById('open')
+                const saveButton = document.getElementById('save')
+
+                circleButton.classList.add('selected')
+                circleButton.addEventListener('click', event => {
+                    circleButton.classList.add('selected')
+                    rectangleButton.classList.remove('selected')
+                    newShapeType = 'circle'
+                })
+                rectangleButton.addEventListener('click', event => {
+                    circleButton.classList.remove('selected')
+                    rectangleButton.classList.add('selected')
+                    newShapeType = 'rectangle'
+                })
+
+                openButton.addEventListener('change', event => {
+                    const file = openButton.files[0]
+                    if (file.type !== 'image/svg+xml') {
+                        return
+                    }
+
+                    const fakeObject = document.createElement('object')
+                    fakeObject.data = URL.createObjectURL(file)
+                    fakeObject.addEventListener('load', () => {
+                        URL.revokeObjectURL(fakeObject.data)
+
+                        shapes = []
+
+                        const svg = fakeObject.getSVGDocument().childNodes[0]
+                        const svgShapes = svg.querySelectorAll('rect,circle')
+                        for (const shape of svgShapes) {
+                            let newShape
+                            if (shape.tagName === 'rect') {
+                                const x = parseFloat(shape.getAttribute('x'))
+                                const y = parseFloat(shape.getAttribute('y'))
+                                const width = parseFloat(shape.getAttribute('width'))
+                                const height = parseFloat(shape.getAttribute('height'))
+                                const color = shape.getAttribute('fill')
+
+                                newShape = new Rectangle(x, y, color, width, height)
+                            } else if (shapes.tagName === 'circle') {
+                                const x = parseFloat(shape.getAttribute('cx'))
+                                const y = parseFloat(shape.getAttribute('cy'))
+                                const radius = parseFloat(shape.getAttribute('r'))
+                                const color = shape.getAttribute('fill')
+
+                                newShape = new Circle(x, y, color, radius)
+                            }
+                            if (newShape) {
+                                shapes.push(newShape)
+                            }
+                        }
+                        document.body.removeChild(fakeObject)
+                    })
+                    document.body.appendChild(fakeObject)
+                })
+                saveButton.addEventListener('click', event => {
+                    const fileContent =
+                        `<svg viewBox="0 0 ${width} ${height}" xmlns="http://www.w3.org/2000/svg">\n` +
+                        `${shapes.reduce((result, shape) => `${result}    ${shape.toSVG()}\n`, '')}`  +
+                        `</svg>`
+
+                    const fakeLink = document.createElement('a')
+                    fakeLink.setAttribute('href', `data:text/plain;charset=utf-8,${encodeURIComponent(fileContent)}`)
+                    fakeLink.setAttribute('download', 'result.svg')
+                    fakeLink.style.display = 'none'
+                    document.body.appendChild(fakeLink)
+                    fakeLink.click()
+                    document.body.removeChild(fakeLink)
+                })
+
+                const canvas = document.getElementById('canvas')
+                canvas.addEventListener('click', event => {
+                    let shouldDraw = true
+                    for (const shape of shapes) {
+                        if (shape.contains(event.clientX, event.clientY)) {
+                            shape.isSelected = !shape.isSelected
+                            shouldDraw = false
+                        }
+                    }
+
+                    if (shouldDraw) {
+                        let shape
+                        if (newShapeType === 'circle') {
+                            shape = new Circle(
+                                event.clientX,
+                                event.clientY,
+                                colorChooser.value,
+                                parseFloat(sizeSlider.value)
+                            )
+                        } else if (newShapeType === 'rectangle') {
+                            shape = new Rectangle(
+                                event.clientX,
+                                event.clientY,
+                                colorChooser.value,
+                                parseFloat(sizeSlider.value * 2),
+                                parseFloat(sizeSlider.value * 2)
+                            )
+                        }
+                        shapes.push(shape)
+                    }
+                })
+
+                document.addEventListener('keydown', event => {
+                    if (event.code === 'Delete') {
+                        shapes = shapes.filter(shape => shape.isSelected !== true)
+                    }
+                })
+
+                window.requestAnimationFrame(timestamp => draw(ctx, width, height, timestamp))
+            }
+
+            function draw(ctx, width, height, timestamp) {
+                if (width != window.innerWidth || height != window.innerHeight) {
+                    width = canvas.width  = window.innerWidth
+                    height = canvas.height = window.innerHeight
+                }
+
+                ctx.fillStyle = 'black'
+                ctx.beginPath()
+                ctx.rect(0, 0, width, height)
+                ctx.fill()
+
+                for (const shape of shapes) {
+                    shape.draw(ctx)
+                }
+
+                window.requestAnimationFrame(timestamp => draw(ctx, width, height, timestamp))
+            }
+        </script>
+    </body>
+</html>

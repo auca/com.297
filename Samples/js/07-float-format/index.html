@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>07: Float Formatting</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const tempF = parseFloat(prompt('Enter the temperature in degrees Fahrenheit:'));
+
+        const tempC = 5/9*(tempF - 32);
+        document.getElementById('result').innerHTML =
+            `The temperature in degrees Celsius: ${tempC.toFixed(2)}`;
+    </script>
+</body>
+</html>

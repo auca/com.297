@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>14: Nested if</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>Enter the number of points: <input id="points" type="text"></label>
+        <button type="submit">Find the grade</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener("submit", event => {
+            event.preventDefault();
+
+            const points = parseInt(document.getElementById('points').value);
+            if (isNaN(points)) {
+                document.getElementById('result').textContent = 'Invalid input.';
+            } else {
+                let msg;
+                if (points < 0 || points > 100) {
+                    msg = `The number of points ${points} is out of an acceptable range.`;
+                } else if (points >= 90) {
+                    msg = 'A';
+                } else if (points >= 80) {
+                    msg = 'B';
+                } else if (points >= 70) {
+                    msg = 'C';
+                } else if (points >= 60) {
+                    msg = 'D';
+                } else {
+                    msg = 'F';
+                }
+
+                document.getElementById('result').textContent = msg;
+            }
+        });
+    </script>
+</body>
+</html>

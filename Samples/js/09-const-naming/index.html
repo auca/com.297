@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>09: Naming Constants</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        const years = parseInt(prompt('Enter the number of years:'));
+
+        const secInYear = 365 * 24 * 60 * 60;
+        const pop = 312_032_486;
+        const oneYearPopGrowth = secInYear / 7 - secInYear / 13 + secInYear / 45;
+        document.getElementById('result').textContent =
+            `The population of USA in ${years} years: ${Math.round(pop + oneYearPopGrowth * years)}`;
+    </script>
+</body>
+</html>

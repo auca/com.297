@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>22: array</title>
+</head>
+<body>
+    <form id="input-form">
+        <label>N: <input id="n" type="text"></label>
+        <button type="submit">Throw dies</button>
+    </form>
+    <p id="result"></p>
+    <script>
+        document.getElementById('input-form').addEventListener("submit", event => {
+            event.preventDefault();
+
+            let n = parseInt(document.getElementById('n').value);
+            if (isNaN(n)) {
+                document.getElementById('result').textContent = 'Invalid input.'
+            } else {
+                const sumCounts = Array(11).fill(0);
+
+                for (let i = 0; i < n; i++) {
+                    const die1 = Math.trunc(1 + Math.random() * 6);
+                    const die2 = Math.trunc(1 + Math.random() * 6);
+                    const sum = die1 + die2;
+                    sumCounts[sum - 2]++;
+                }
+
+                let msg = '';
+                for (let i = 0; i < sumCounts.length; i++) {
+                    msg += `${i + 2}: ${sumCounts[i]}<br>`;
+                }
+                document.getElementById('result').innerHTML = msg;
+            }
+        });
+    </script>
+</body>
+</html>

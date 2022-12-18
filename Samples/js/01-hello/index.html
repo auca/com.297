@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>01: Basic Output</title>
+</head>
+<body>
+    <p id="result"></p>
+    <script>
+        // Print to a log of a browser's dev tools.
+        console.log('Hello\nWorld!');
+        console.warn('Hello\nWorld!');
+        console.error('Hello\nWorld!'); // <- note lack of ; at the end
+
+        /*
+            Modify a DOM element of an HTML
+            document.
+         */
+        document.getElementById('result').innerHTML = 'Hello<br>World!';
+
+        // Show an annoying pop-up.
+        window.alert('Hello\nWorld!');
+    </script>
+</body>
+</html>
